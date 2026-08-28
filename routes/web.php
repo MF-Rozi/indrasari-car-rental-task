@@ -34,9 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-rentals', [\App\Http\Controllers\RentalController::class, 'myRentals'])->name('rentals.my-rentals');
     Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\RentalController::class, 'cancel'])->name('rentals.cancel');
 
-    Route::get('/rentals/return', function () {
-        return view('rentals.return');
-    })->name('rentals.return');
+    // Vehicle Return & Invoice routes
+    Route::get('/rentals/return', [\App\Http\Controllers\ReturnController::class, 'showReturn'])->name('rentals.return');
+    Route::post('/rentals/return/confirm', [\App\Http\Controllers\ReturnController::class, 'confirmReturn'])->name('rentals.return.confirm');
+    Route::get('/invoices/{invoice}', [\App\Http\Controllers\InvoiceController::class, 'show'])->name('invoices.show');
 });
 
 // Admin Protected routes
