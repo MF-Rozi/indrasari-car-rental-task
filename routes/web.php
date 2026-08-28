@@ -42,13 +42,10 @@ Route::middleware('auth')->group(function () {
 
 // Admin Protected routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('cars', \App\Http\Controllers\Admin\CarController::class)->except(['show']);
 
-    Route::get('/bookings', function () {
-        return view('admin.bookings.index');
-    })->name('bookings.index');
+    Route::get('/bookings', [\App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings/{rental}', [\App\Http\Controllers\Admin\BookingController::class, 'show'])->name('bookings.show');
 });
