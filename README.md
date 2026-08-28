@@ -1,58 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚗 Indrasari Car Rental Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, full-stack vehicle rental and fleet management platform built with **Laravel 12**, **Tailwind CSS v4**, **Alpine.js**, and **Pest PHP**. Designed with strict atomic transaction safety to prevent double-booking collisions, responsive dual-theme (Light/Dark) UI, digital invoicing, and a real-time admin command center.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 Key Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. 🔐 User Authentication, Profiles & Role-Based Access Control
+- **Dual User Roles**: `customer` and `admin` with dedicated navigation, guards, and middleware (`AdminMiddleware`).
+- **Profile Management**: Customer profile updates including driver license (**SIM A**) verification, phone numbers, and secure password changes.
+- **Dual-Theme Support**: System-detected and toggleable Light & Dark mode with zero-FOUC (Flash of Unstyled Content).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. 🚙 Admin Fleet Inventory & Asset Management
+- **Full CRUD Management**: Create, view, update, and soft-delete fleet vehicles.
+- **Image Processing**: Vehicle photo uploads (`jpeg, png, jpg, webp`) with automatic disk cleanup on replacement/deletion.
+- **Fleet Metrics**: Live tracking of vehicle statuses (`available`, `rented`, `maintenance`).
 
-## Learning Laravel
+### 3. 🔍 Customer Catalog Browsing & Multi-Attribute Search
+- **Dynamic Search & Filters**: Filter by brand pills (Toyota, Honda, Mitsubishi, etc.), transmission, seating capacity, price sorting, and specific rental dates.
+- **Smart Date Availability Scope**: Automatically excludes vehicles booked by overlapping active/upcoming rentals.
+- **Interactive Vehicle Details**: Technical specifications grid, similar vehicle recommendations, and live client-side date rental estimator.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. 📅 Car Booking & Collision-Free Reservation System
+- **Pessimistic Row-Level Locking**: Atomic database transactions (`DB::transaction` with `Car::lockForUpdate()`) preventing date collision race conditions.
+- **Pre-filled Checkout**: Seamless booking confirmation pre-populating verified driver info (SIM number) and real-time pricing breakdown.
+- **Customer "My Rentals" Portal**: Multi-tab interface (All, Active, Upcoming, Completed, Cancelled) with reservation cancellation safeguards.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. 🧾 Vehicle Return Processing & Digital Invoicing
+- **License Plate Verification**: Customer return verification by license plate number with active rentals quick-select chips.
+- **Atomic Settlement**: Automatic duration calculation with a 1-day floor (`elapsed_days * daily_rate`), vehicle state restoration, and instant invoice generation (`INV-YYYYMMDD-XXXX`).
+- **Printable Receipts**: Dual-theme digital invoice with `@media print` white-background stylesheet for clean physical printing and PDF export.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 6. 📊 Admin Command Center & Global Booking Audits
+- **Real-Time KPI Cards**: Total Fleet breakdown, Active Ongoing Rentals, Registered Customer accounts, and Total Settled Paid Revenue (in IDR).
+- **System-Wide Booking Management**: Filter by status (Active, Completed, Cancelled), multi-attribute keyword search, and active date filters.
+- **Single Booking Audit**: Inspection view showing customer driver license (SIM A), vehicle specifications, rental duration timeline, and direct invoice link.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🛠️ Technology Stack
+
+- **Framework:** Laravel 12 (PHP 8.2+)
+- **Database:** MySQL / MariaDB (production) / SQLite (testing)
+- **Frontend:** Tailwind CSS v4, Blade Templating, Alpine.js, Vite
+- **Testing:** Pest PHP Testing Framework (100 Feature Tests, 406 Assertions)
+- **Architecture:** Service Layer pattern (`BookingService`, `ReturnService`), Form Requests, Eloquent Query Scopes
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- Node.js & npm
+- MySQL or Docker / Podman
+
+### Installation Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MF-Rozi/indrasari-car-rental-task.git
+   cd indrasari-car-rental-task
+   ```
+
+2. **Install PHP and Node dependencies:**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Configure Environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Run Database Migrations & Seeders:**
+   ```bash
+   php artisan migrate:fresh --seed
+   php artisan storage:link
+   ```
+
+5. **Build Frontend Assets:**
+   ```bash
+   npm run build
+   # or for active development:
+   npm run dev
+   ```
+
+6. **Start the Local Development Server:**
+   ```bash
+   php artisan serve
+   ```
+   Access the application at `http://localhost:8000`.
+
+---
+
+## 🔑 Default Credentials
+
+The database seeder automatically creates the following default accounts:
+
+| Role | Email | Password | Access Level |
+|---|---|---|---|
+| **Administrator** | `admin@indrasari.test` | `password` | Admin Dashboard, Fleet Management, Booking Audits |
+| **Customer** | `customer@indrasari.test` | `password` | Catalog Browsing, Checkout, My Rentals, Vehicle Returns |
+
+---
+
+## 🧪 Running Automated Tests
+
+The application features a comprehensive test suite of **100 feature tests** covering authentication, fleet validation, booking collision prevention, return processing, digital invoices, and admin KPIs:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Test Suite Overview:
+```
+   PASS  Tests\Feature\Admin\AdminBookingManagementTest
+   PASS  Tests\Feature\Admin\AdminBookingViewRenderingTest
+   PASS  Tests\Feature\Admin\CarManagementTest
+   PASS  Tests\Feature\Admin\CarSchemaAndSeederTest
+   PASS  Tests\Feature\Admin\CarValidationTest
+   PASS  Tests\Feature\Admin\CarViewRenderingTest
+   PASS  Tests\Feature\Admin\DashboardControllerTest
+   PASS  Tests\Feature\Admin\DashboardViewRenderingTest
+   PASS  Tests\Feature\Auth\AuthenticationTest
+   PASS  Tests\Feature\Auth\AuthorizationAndRoleTest
+   PASS  Tests\Feature\Auth\ProfileTest
+   PASS  Tests\Feature\Auth\UserSchemaTest
+   PASS  Tests\Feature\Catalog\CarDetailsEndpointTest
+   PASS  Tests\Feature\Catalog\CarDetailsViewRenderingTest
+   PASS  Tests\Feature\Catalog\CarSearchScopeTest
+   PASS  Tests\Feature\Catalog\CatalogControllerTest
+   PASS  Tests\Feature\Catalog\CatalogViewRenderingTest
+   PASS  Tests\Feature\Invoices\InvoiceSchemaTest
+   PASS  Tests\Feature\Invoices\InvoiceViewRenderingTest
+   PASS  Tests\Feature\Invoices\ReturnControllerTest
+   PASS  Tests\Feature\Invoices\ReturnServiceTest
+   PASS  Tests\Feature\Invoices\ReturnViewRenderingTest
+   PASS  Tests\Feature\Rentals\BookingCollisionTest
+   PASS  Tests\Feature\Rentals\CheckoutViewRenderingTest
+   PASS  Tests\Feature\Rentals\MyRentalsViewRenderingTest
+   PASS  Tests\Feature\Rentals\RentalControllerTest
+   PASS  Tests\Feature\Rentals\RentalSchemaTest
 
-## Contributing
+  Tests:    100 passed (406 assertions)
+  Duration: 2.40s
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 📄 License
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](LICENSE).
