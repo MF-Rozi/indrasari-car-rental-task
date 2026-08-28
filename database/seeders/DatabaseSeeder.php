@@ -34,5 +34,8 @@ class DatabaseSeeder extends Seeder
             'sim_number' => '123456789012',
             'role' => 'customer',
         ]);
+
+        // Seed Initial Fleet
+        $this->call(CarSeeder::class);
     }
 }

@@ -45,9 +45,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(funct
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::get('/cars', function () {
-        return view('admin.cars.index');
-    })->name('cars.index');
+    Route::resource('cars', \App\Http\Controllers\Admin\CarController::class)->except(['show']);
 
     Route::get('/bookings', function () {
         return view('admin.bookings.index');
