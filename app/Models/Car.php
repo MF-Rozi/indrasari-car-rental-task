@@ -70,14 +70,64 @@ class Car extends Model
     }
 
     /**
-     * Get the full publicly accessible image URL.
+     * Scope search query across brand, model, and license plate.
      */
-    public function getImageUrlAttribute(): ?string
+    public function scopeSearch($query, ?string $keyword)
     {
-        if (! $this->image_path) {
-            return null;
+        if (! empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('brand', 'like', "%{$keyword}%")
+                    ->orWhere('model', 'like', "%{$keyword}%")
+                    ->orWhere('license_plate', 'like', "%{$keyword}%");
+            });
         }
 
-        return Storage::disk('public')->url($this->image_path);
+        return $query;
+    }
+
+    /**
+     * Scope query to filter by brand.
+     */
+    public function scopeBrand($query, ?string $brand)
+    {
+        if (! empty($brand) && strtolower($brand) !== 'all') {
+            $query->where('brand', $brand);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Scope query to sort by daily rate or recency.
+     */
+    public function scopeSortByRate($query, ?string $sort)
+    {
+        if ($sort === 'price_asc') {
+            return $query->orderBy('daily_rate', 'asc');
+        }
+
+        if ($sort === 'price_desc') {
+            return $query->orderBy('daily_rate', 'desc');
+        }
+
+        return $query->latest();
+    }
+
+    /**
+     * Scope query to filter available vehicles for a date range.
+     */
+    public function scopeAvailableForDates($query, ?string $startDate, ?string $endDate)
+    {
+        $query->where('status', '!=', 'maintenance');
+
+        if ($startDate && $endDate && \Illuminate\Support\Facades\Schema::hasTable('rentals')) {
+            $query->whereDoesntHave('rentals', function ($q) use ($startDate, $endDate) {
+                $q->whereIn('status', ['active', 'confirmed', 'upcoming'])
+                    ->where('start_date', '<=', $endDate)
+                    ->where('end_date', '>=', $startDate);
+            });
+        }
+
+        return $query;
     }
 }
