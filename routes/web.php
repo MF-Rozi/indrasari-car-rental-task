@@ -42,9 +42,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin Protected routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('cars', \App\Http\Controllers\Admin\CarController::class)->except(['show']);
 
