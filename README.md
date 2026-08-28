@@ -1,6 +1,6 @@
 # 🚗 Indrasari Car Rental Management System
 
-A modern, full-stack vehicle rental and fleet management platform built with **Laravel 12**, **Tailwind CSS v4**, **Alpine.js**, and **Pest PHP**. Designed with strict atomic transaction safety to prevent double-booking collisions, responsive dual-theme (Light/Dark) UI, digital invoicing, and a real-time admin command center.
+A modern, full-stack vehicle rental and fleet management platform built with **Laravel 13**, **Tailwind CSS v4**, **Alpine.js**, and **Pest PHP**. Designed with strict atomic transaction safety to prevent double-booking collisions, responsive dual-theme (Light/Dark) UI, digital invoicing, and a real-time admin command center.
 
 ---
 
@@ -40,7 +40,7 @@ A modern, full-stack vehicle rental and fleet management platform built with **L
 
 ## 🛠️ Technology Stack
 
-- **Framework:** Laravel 12 (PHP 8.2+)
+- **Framework:** Laravel 13 (PHP 8.2+)
 - **Database:** MySQL / MariaDB (production) / SQLite (testing)
 - **Frontend:** Tailwind CSS v4, Blade Templating, Alpine.js, Vite
 - **Testing:** Pest PHP Testing Framework (100 Feature Tests, 406 Assertions)
