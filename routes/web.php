@@ -46,7 +46,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(funct
 
     Route::resource('cars', \App\Http\Controllers\Admin\CarController::class)->except(['show']);
 
-    Route::get('/bookings', function () {
-        return view('admin.bookings.index');
-    })->name('bookings.index');
+    Route::get('/bookings', [\App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings/{rental}', [\App\Http\Controllers\Admin\BookingController::class, 'show'])->name('bookings.show');
 });
