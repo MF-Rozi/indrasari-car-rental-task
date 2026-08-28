@@ -9,9 +9,8 @@ Route::get('/', function () {
     return redirect()->route('catalog.index');
 });
 
-Route::get('/catalog', function () {
-    return view('catalog.index');
-})->name('catalog.index');
+Route::get('/catalog', [\App\Http\Controllers\CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/{car}', [\App\Http\Controllers\CatalogController::class, 'show'])->name('catalog.show');
 
 // Guest Authentication routes
 Route::middleware('guest')->group(function () {
@@ -30,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // Customer Portal Placeholders
+    Route::get('/rentals/checkout/{car}', function (\App\Models\Car $car) {
+        return view('rentals.checkout', ['car' => $car]);
+    })->name('rentals.checkout');
+
     Route::get('/my-rentals', function () {
         return view('rentals.my-rentals');
     })->name('rentals.my-rentals');
