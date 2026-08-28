@@ -192,7 +192,7 @@
                                 Proceed to Booking
                             </button>
                         @else
-                            <button type="button" disabled class="w-full cursor-not-allowed rounded-xl bg-slate-300 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-500">
+                            <button type="button" disabled class="w-full cursor-not-allowed rounded-xl bg-slate-200 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
                                 Vehicle Unavailable
                             </button>
                         @endif

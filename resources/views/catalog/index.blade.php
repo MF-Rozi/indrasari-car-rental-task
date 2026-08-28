@@ -98,9 +98,9 @@
             <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Sort:</span>
             <select name="sort" onchange="this.form.submit()"
                 class="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 focus:border-blue-500 focus:outline-none dark:border-slate-700 dark:bg-[#1E293B] dark:text-slate-200">
-                <option value="latest" {{ $currentSort === 'latest' ? 'selected' : '' }}>Featured / Latest</option>
-                <option value="price_asc" {{ $currentSort === 'price_asc' ? 'selected' : '' }}>Price: Low to High</option>
-                <option value="price_desc" {{ $currentSort === 'price_desc' ? 'selected' : '' }}>Price: High to Low</option>
+                <option value="latest" class="bg-white text-slate-900 dark:bg-[#1E293B] dark:text-slate-100" {{ $currentSort === 'latest' ? 'selected' : '' }}>Featured / Latest</option>
+                <option value="price_asc" class="bg-white text-slate-900 dark:bg-[#1E293B] dark:text-slate-100" {{ $currentSort === 'price_asc' ? 'selected' : '' }}>Price: Low to High</option>
+                <option value="price_desc" class="bg-white text-slate-900 dark:bg-[#1E293B] dark:text-slate-100" {{ $currentSort === 'price_desc' ? 'selected' : '' }}>Price: High to Low</option>
             </select>
         </form>
     </div>

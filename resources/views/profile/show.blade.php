@@ -36,15 +36,15 @@
 
                 <div class="mt-6 space-y-3 border-t border-slate-100 pt-6 dark:border-slate-700/60">
                     <div>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Phone Number</span>
+                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Phone Number</span>
                         <p class="text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->phone_number }}</p>
                     </div>
                     <div>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">License Number (SIM)</span>
+                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">License Number (SIM)</span>
                         <p class="text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->sim_number }}</p>
                     </div>
                     <div>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Registered On</span>
+                        <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Registered On</span>
                         <p class="text-sm font-medium text-slate-800 dark:text-slate-200">{{ $user->created_at->format('d M Y') }}</p>
                     </div>
                 </div>

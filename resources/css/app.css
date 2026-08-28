@@ -11,8 +11,46 @@
 @variant dark (&:where(.dark, .dark *));
 
 @layer base {
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
     body {
         font-family: var(--font-sans);
         transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Native select option dropdown menu styling */
+    select option {
+        background-color: #FFFFFF;
+        color: #0F172A;
+    }
+
+    html.dark select option {
+        background-color: #1E293B;
+        color: #F8FAFC;
+    }
+
+    /* WebKit date indicator & autofill contrast */
+    html.dark input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+    html.dark input:-webkit-autofill,
+    html.dark input:-webkit-autofill:hover, 
+    html.dark input:-webkit-autofill:focus,
+    html.dark textarea:-webkit-autofill,
+    html.dark textarea:-webkit-autofill:hover,
+    html.dark textarea:-webkit-autofill:focus,
+    html.dark select:-webkit-autofill,
+    html.dark select:-webkit-autofill:hover,
+    html.dark select:-webkit-autofill:focus {
+        -webkit-text-fill-color: #F8FAFC;
+        -webkit-box-shadow: 0 0 0px 1000px #0F172A inset;
+        transition: background-color 5000s ease-in-out 0s;
     }
 }

@@ -92,8 +92,8 @@
                         </label>
                         <select id="transmission" name="transmission" required
                             class="mt-1.5 block w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-purple-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:border-slate-700 dark:bg-[#0F172A] dark:text-white @error('transmission') border-rose-500 @enderror">
-                            <option value="Automatic" {{ old('transmission', $car->transmission) === 'Automatic' ? 'selected' : '' }}>Automatic</option>
-                            <option value="Manual" {{ old('transmission', $car->transmission) === 'Manual' ? 'selected' : '' }}>Manual</option>
+                            <option value="Automatic" class="bg-white text-slate-900 dark:bg-[#0F172A] dark:text-slate-100" {{ old('transmission', $car->transmission) === 'Automatic' ? 'selected' : '' }}>Automatic</option>
+                            <option value="Manual" class="bg-white text-slate-900 dark:bg-[#0F172A] dark:text-slate-100" {{ old('transmission', $car->transmission) === 'Manual' ? 'selected' : '' }}>Manual</option>
                         </select>
                         @error('transmission')
                             <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
@@ -117,9 +117,9 @@
                         </label>
                         <select id="status" name="status" required
                             class="mt-1.5 block w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-purple-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 dark:border-slate-700 dark:bg-[#0F172A] dark:text-white @error('status') border-rose-500 @enderror">
-                            <option value="available" {{ old('status', $car->status) === 'available' ? 'selected' : '' }}>Available</option>
-                            <option value="rented" {{ old('status', $car->status) === 'rented' ? 'selected' : '' }}>Rented</option>
-                            <option value="maintenance" {{ old('status', $car->status) === 'maintenance' ? 'selected' : '' }}>Maintenance</option>
+                            <option value="available" class="bg-white text-slate-900 dark:bg-[#0F172A] dark:text-slate-100" {{ old('status', $car->status) === 'available' ? 'selected' : '' }}>Available</option>
+                            <option value="rented" class="bg-white text-slate-900 dark:bg-[#0F172A] dark:text-slate-100" {{ old('status', $car->status) === 'rented' ? 'selected' : '' }}>Rented</option>
+                            <option value="maintenance" class="bg-white text-slate-900 dark:bg-[#0F172A] dark:text-slate-100" {{ old('status', $car->status) === 'maintenance' ? 'selected' : '' }}>Maintenance</option>
                         </select>
                         @error('status')
                             <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">{{ $message }}</p>
