@@ -15,11 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Default Administrator
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Administrator',
+            'email' => 'admin@indrasari.test',
+            'phone_number' => '081234567890',
+            'address' => 'Headquarters Office, Jakarta',
+            'sim_number' => 'ADMIN-001',
+            'role' => 'admin',
+        ]);
+
+        // Default Sample Customer
+        User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'customer@indrasari.test',
+            'phone_number' => '089876543210',
+            'address' => 'Jl. Sudirman No. 12, Jakarta',
+            'sim_number' => '123456789012',
+            'role' => 'customer',
         ]);
     }
 }
