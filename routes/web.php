@@ -9,9 +9,8 @@ Route::get('/', function () {
     return redirect()->route('catalog.index');
 });
 
-Route::get('/catalog', function () {
-    return view('catalog.index');
-})->name('catalog.index');
+Route::get('/catalog', [\App\Http\Controllers\CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/{car}', [\App\Http\Controllers\CatalogController::class, 'show'])->name('catalog.show');
 
 // Guest Authentication routes
 Route::middleware('guest')->group(function () {
@@ -29,27 +28,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Customer Portal Placeholders
-    Route::get('/my-rentals', function () {
-        return view('rentals.my-rentals');
-    })->name('rentals.my-rentals');
+    // Customer Rental & Booking routes
+    Route::get('/rentals/checkout/{car}', [\App\Http\Controllers\RentalController::class, 'checkout'])->name('rentals.checkout');
+    Route::post('/rentals/book', [\App\Http\Controllers\RentalController::class, 'store'])->name('rentals.store');
+    Route::get('/my-rentals', [\App\Http\Controllers\RentalController::class, 'myRentals'])->name('rentals.my-rentals');
+    Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\RentalController::class, 'cancel'])->name('rentals.cancel');
 
-    Route::get('/rentals/return', function () {
-        return view('rentals.return');
-    })->name('rentals.return');
+    // Vehicle Return & Invoice routes
+    Route::get('/rentals/return', [\App\Http\Controllers\ReturnController::class, 'showReturn'])->name('rentals.return');
+    Route::post('/rentals/return/confirm', [\App\Http\Controllers\ReturnController::class, 'confirmReturn'])->name('rentals.return.confirm');
+    Route::get('/invoices/{invoice}', [\App\Http\Controllers\InvoiceController::class, 'show'])->name('invoices.show');
 });
 
 // Admin Protected routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/cars', function () {
-        return view('admin.cars.index');
-    })->name('cars.index');
+    Route::resource('cars', \App\Http\Controllers\Admin\CarController::class)->except(['show']);
 
-    Route::get('/bookings', function () {
-        return view('admin.bookings.index');
-    })->name('bookings.index');
+    Route::get('/bookings', [\App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings/{rental}', [\App\Http\Controllers\Admin\BookingController::class, 'show'])->name('bookings.show');
 });
