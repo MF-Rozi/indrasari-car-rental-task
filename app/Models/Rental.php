@@ -58,6 +58,14 @@ class Rental extends Model
     }
 
     /**
+     * The digital invoice generated upon return.
+     */
+    public function invoice(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
+    /**
      * Check if rental is actively ongoing today or in progress.
      */
     public function isActive(): bool
