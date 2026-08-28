@@ -45,4 +45,12 @@ class User extends Authenticatable
     {
         return $this->role === 'customer';
     }
+
+    /**
+     * The rentals placed by this user.
+     */
+    public function rentals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
 }

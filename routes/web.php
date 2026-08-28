@@ -28,14 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Customer Portal Placeholders
-    Route::get('/rentals/checkout/{car}', function (\App\Models\Car $car) {
-        return view('rentals.checkout', ['car' => $car]);
-    })->name('rentals.checkout');
-
-    Route::get('/my-rentals', function () {
-        return view('rentals.my-rentals');
-    })->name('rentals.my-rentals');
+    // Customer Rental & Booking routes
+    Route::get('/rentals/checkout/{car}', [\App\Http\Controllers\RentalController::class, 'checkout'])->name('rentals.checkout');
+    Route::post('/rentals/book', [\App\Http\Controllers\RentalController::class, 'store'])->name('rentals.store');
+    Route::get('/my-rentals', [\App\Http\Controllers\RentalController::class, 'myRentals'])->name('rentals.my-rentals');
+    Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\RentalController::class, 'cancel'])->name('rentals.cancel');
 
     Route::get('/rentals/return', function () {
         return view('rentals.return');
