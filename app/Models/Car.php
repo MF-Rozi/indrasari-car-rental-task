@@ -130,4 +130,12 @@ class Car extends Model
 
         return $query;
     }
+
+    /**
+     * The rental bookings for this vehicle.
+     */
+    public function rentals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
 }
